@@ -1,7 +1,7 @@
 # STOCK_Market_version2
 ## Patterns Chosen
 
-The patterns chosen for this project are Observer, Iterator and Singleton (DAO)
+The patterns chosen for this project are Observer, Iterator and Singleton
 
 * Observer Design Pattern
 
