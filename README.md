@@ -28,19 +28,19 @@ For example the InvestorIteratorInterface
 ConcreteIterator: implements the Iterator interface methods. It can also keep track of the current position in the traversal of the aggregate collection.
 For example the InvestorIterator that implements the InvestorIteratorInterface
 
-Aggregate: It is typically a collection interface which defines a method that can create an Iterator object.
-For example InvestorCollectionInterface
+InvestorIteratorInterface: It is typically a collection interface which defines a method that can create an Iterator object.
 
-ConcreteAggregate: It implements the Aggregate interface and its specific method returns an instance of ConcreteIterator.
-For exampple the InvestorCollection
+
+InvestorIterator: It implements the InvestorIteratorInterface interface and its specific method returns an instance of InvestorIterator.
 
 
 * Singleton 
 Singleton pattern is a design solution where an application wants to have one and only one instance of any class, in all possible scenarios without any exceptional condition
 
-
+TradeEventTracker is implementated uisng singleton pattern and keeping track of various stats with one instance.
 
 
 
 # REFERENCES 
 https://howtodoinjava.com/design-patterns/behavioral/
+https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax
