@@ -1,14 +1,16 @@
+import java.util.HashMap;
 
 public class Investor {
-	private long id;
+
+    private long id;
 
     private double budget;
 
-//    HashMap<Integer, Integer> companyStockMap;
+    HashMap<Integer, Integer> companyStockMap;
 
     public Investor(int id) {
         this.id = id;
-  //      companyStockMap = new HashMap<>();
+        companyStockMap = new HashMap<>();
     }
 
     public long getId() {
