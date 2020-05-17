@@ -9,6 +9,8 @@ public class MainClient {
     public static void main(String[] args) throws InterruptedException {
 
         TradingDay tradingDay = new TradingDay();
+        
+        //TradeEventTracker is in singleton pattern
         TradeEventTracker tradeEventTracker = TradeEventTracker.getInstance();
 
         //creating companies with unique id
@@ -35,16 +37,25 @@ public class MainClient {
             company.setPrice(r.nextInt(high - low) + low);
         }
 
+        //Creating dynamic investors
         InvestorCollectionInterface investors = createInvestors();
-
+        
+        
+        // Runs the final simulation 
         simulateTradingDay(tradingDay.companies, investors);
     }
 
+    // Method for creating dynamic investors
     public static InvestorCollectionInterface createInvestors() {
 
+    	// Storing investors in collection, which is implemented in iterator design pattern
         InvestorCollectionInterface investors = new InvestorCollection();
+        
+        
+      //TradeEventTracker is in singleton pattern
         TradeEventTracker tradeEventTracker = TradeEventTracker.getInstance();
 
+        
         for (int i = 1; i <= 100; i++) {
             Investor investor = new Investor(i);
 
@@ -62,7 +73,9 @@ public class MainClient {
         return investors;
 
     }
-
+    
+    
+    // Method to simulate the trading day
     public static void simulateTradingDay(List<Company_Observer> companies, InvestorCollectionInterface investors) throws InterruptedException {
 
         TradeEventTracker tradeEventTracker = TradeEventTracker.getInstance();
@@ -70,7 +83,11 @@ public class MainClient {
         Random random = new Random();
 
         int i = 0;
+        
+        // Run till wee have budget as well as shares in the market
         while (tradeEventTracker.getTotalBudgetFloating() > 0 && tradeEventTracker.getTotalSharesInMarketToSell() > 0) {
+        	
+        	// Randomly pick a company to sell a share and an investor to buy a share
             int randomCompanyId = random.nextInt(100);
             int randomInvestor = random.nextInt(100);
 
@@ -78,6 +95,7 @@ public class MainClient {
             //System.out.println(randomCompanyId  + 1  + " \n ");
             Company_Observer company = companies.get(randomCompanyId);
 
+            // If we do not have any remaining share in the company, go back and choose another
             if (company.getSharesRemaining() <= 0) {
                 continue;
             }
@@ -85,8 +103,10 @@ public class MainClient {
             Investor investor = investors.getInvestorWithId(randomInvestor + 1);
 
 
+            
             double sellPossible = investor.getBudget() - company.getSharePrice();
 
+            // If investor can buy the share, if he/she has enough money
             if (sellPossible < 0) {
                 //System.out.println("Investor: "  +investor.getId() + " Budget ");
                 i++;
@@ -96,33 +116,43 @@ public class MainClient {
                 continue;
             }
 
+            // tracks the number of shares remaining and total sold shares
             company.updateShares(1);
 
+            // Update the singleton  tracker for business logic
             tradeEventTracker.addToNumOfTradesToday();
             tradeEventTracker.subtractToTotalSharesInMarketToSell(1);
             tradeEventTracker.subtractToTotalBudgetFloating(company.getSharePrice());
 
 
+            // We are updating the budget for the investor
             investor.setBudget(sellPossible);
 
+            
+            // Doubling the price after 10 shares are sold for a company
             if (company.getSharesSold() == 10) {
                 company.setPrice(company.getSharePrice() * 2);
             }
 
+            
+            // Making the share price 2 % less for the companies which sold 0 shares when 10 are sold in total.
             if (tradeEventTracker.getNumOfTradesToday() == 10) {
                 updatePriceOn10Sale(companies);
             }
 
             //System.out.println("Trading ... " + randomCompanyId + " .... " + randomInvestor);
 
+            // Printing the top and bottoms so far
             printStats(companies, investors);
 
-            TimeUnit.MILLISECONDS.sleep(300);
+            // Controls the speed of simulation
+            TimeUnit.MILLISECONDS.sleep(150);
 
         }
 
     }
 
+    // Updating the price for company with 0 shares sold 
     public static void updatePriceOn10Sale(List<Company_Observer> companies) {
 
         for (Company_Observer observer : companies) {
@@ -132,10 +162,8 @@ public class MainClient {
         }
     }
 
-    public static void resultPrint() {
 
-    }
-
+    
     public static void printStats(List<Company_Observer> companies, InvestorCollectionInterface investors) {
 
         Company_Observer highestCapital = companies.get(0);
@@ -148,6 +176,7 @@ public class MainClient {
 
 
 
+        // Finding the highest share and lowest shares sold 
 
         for (Company_Observer observer : companies) {
             double capital = observer.getSharePrice() * observer.getSharesRemaining(); // Calculating the capital as given in assignment document
@@ -162,7 +191,8 @@ public class MainClient {
                 lowestCapital = observer;
             }
         }
-
+        
+        // Finding all the companies with either highest or lowest shares and printing in menu
         for (Company_Observer observer : companies) {
             double capital = observer.getSharePrice() * observer.getSharesRemaining();
 
@@ -178,7 +208,9 @@ public class MainClient {
             }
         }
 
-
+        
+        
+        // FInding the investors with the highest and lowest number of shares and 
         for (Investor investor : investors.getInvestorList()) {
             double currentShare = 0;
 
@@ -189,6 +221,8 @@ public class MainClient {
 
             int maxShares = 0;
 
+            
+            // Taking the map value for each investor as we save the shares with a invest in a map 
             for (Map.Entry<Integer, Integer> entry : maxSharesInvestor.companyStockMap.entrySet()) {
                 maxShares += entry.getValue();
             }
@@ -213,6 +247,8 @@ public class MainClient {
                 minSharesWithInvestor = minShares;
             }
         }
+        
+        // Printing the investors with min and max shares
 
         System.out.println("Investor id for most shares: " + maxSharesInvestor.getId() + "  with total shares:  " + maxSharesWithInvestor);
 

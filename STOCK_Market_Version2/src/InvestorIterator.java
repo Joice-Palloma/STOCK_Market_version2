@@ -3,7 +3,10 @@ import java.util.List;
 
 public class InvestorIterator implements InvestorIteratorInterface{
 
+	// List of investors for the day
     List<Investor> investorList;
+    
+    //Current position in iterator
     int position;
 
     public InvestorIterator(List<Investor> investors){
@@ -11,6 +14,7 @@ public class InvestorIterator implements InvestorIteratorInterface{
         this.position = 0;
     }
 
+    //Overridden methods
     @Override
     public boolean hasNext() {
 

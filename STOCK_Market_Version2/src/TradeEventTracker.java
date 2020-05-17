@@ -2,10 +2,15 @@ import java.util.List;
 
 public class TradeEventTracker {
 
+	// Number of shares already sold
     private int numOfTradesToday;
 
+    
+    // Total number of shares available at the start of simulation
     private int totalSharesInMarketToSell;
 
+    
+    //Total budget (amount with investors) available at the start of simulation
     private double totalBudgetFloating;
 
 
@@ -13,6 +18,8 @@ public class TradeEventTracker {
 
     private static TradeEventTracker tradeEventTracker;
 
+  //make the constructor private so that this class cannot be
+    //instantiated
     private TradeEventTracker(){
         numOfTradesToday = 0;
         totalSharesInMarketToSell = 0;
@@ -20,6 +27,7 @@ public class TradeEventTracker {
 
     }
 
+  //Get the only object available
     public int getNumOfTradesToday() {
         return numOfTradesToday;
     }

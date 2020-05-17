@@ -3,6 +3,7 @@ import java.util.List;
 
 public class InvestorCollection implements InvestorCollectionInterface {
 
+	//List of investors trading
 	private List<Investor> investorList;
 
     public InvestorCollection(){
@@ -10,6 +11,9 @@ public class InvestorCollection implements InvestorCollectionInterface {
       
         
 }
+    //Overridden methods
+    
+    // Adding after dynamic creation
     @Override
     public void addInvestor(Investor i) {
         this.investorList.add(i);
@@ -25,6 +29,7 @@ public class InvestorCollection implements InvestorCollectionInterface {
         return new InvestorIterator(this.investorList);
     }
 
+    // Getting the investor with investor id
     @Override
     public Investor getInvestorWithId(int id) {
         for(Investor investor : investorList){
@@ -34,13 +39,14 @@ public class InvestorCollection implements InvestorCollectionInterface {
         }
 
         return null;
-    }
+    } 
     
     
     
     
     
     
+    // Sending the list of investors 
     @Override
 	public List<Investor> getInvestorList() {
 		return investorList;

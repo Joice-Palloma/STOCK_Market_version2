@@ -1,6 +1,7 @@
 import java.util.List;
 
 public interface InvestorCollectionInterface {
+	//interface methods
 	
 	 public void addInvestor(Investor i);
 

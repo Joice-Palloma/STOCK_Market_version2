@@ -1,5 +1,6 @@
 public class Company implements Company_Observer {
 
+	//atributes
     private long id;
 
     private int numOfShares;
@@ -8,15 +9,20 @@ public class Company implements Company_Observer {
 
     private int sharesSold;
 
-
+    
+    //Constructor
     public Company(int id) {
 
         this.id = id;
     }
+    
+    // INterface methods
 
     public long getId() {
         return id;
     }
+    
+    //Overridden methods
 
     @Override
     public int getSharesSold() {
