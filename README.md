@@ -11,7 +11,7 @@ In observer pattern, there are many observers (subscriber objects) that are obse
 
 A observer object can register or unregister from subject at any point of time. It helps is making the objects objects loosely coupled.
 
-**For all the caracteristics mentioned above I chose the Observer Pattern for the company, to keep track ok the information that will be updated , also to update and check the updated values for a few fields.
+* *For all the caracteristics mentioned above I chose the Observer Pattern for the company, to keep track ok the information that will be updated , also to update and check the updated values for a few fields.
 
 
 
@@ -20,7 +20,7 @@ I chose to have the investor as iterator for the following reasons
 
 As stated by Howtodoinjava(2016) the behavioral design pattern iterator provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation.  iterator helps in traversing the collection of objects in a defined manner which is useful the client applications. During iteration, client programs can perform various other operations on the elements as per requirements.
 
-**As shown on the code those are the necessary participants of iterator pattern 
+* *As shown on the code those are the necessary participants of iterator pattern 
 
 Iterator: An interface to access or traverse the elements collection. Provide methods which concrete iterators must implement.
 For example the InvestorIteratorInterface
@@ -36,6 +36,7 @@ For exampple the InvestorCollection
 
 
 * Singleton 
+Singleton pattern is a design solution where an application wants to have one and only one instance of any class, in all possible scenarios without any exceptional condition
 
 
 
